@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://3kuef2sc7h1w"]
+
+[ext_resource type="Script" path="res://assets/Player/player.gd" id="1_olkvl"]
+[ext_resource type="PackedScene" uid="uid://clu5o6mlvekhd" path="res://assets/Player/gun.tscn" id="2_phix8"]
+[ext_resource type="Texture2D" uid="uid://bndefr8e1wyfv" path="res://assets/Sprites/crosshair.png" id="3_d2bmy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_krxje"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yiie4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nh06o"]
+font_size = 50
+font_color = Color(1, 1, 0.0196078, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qjqva"]
+font_size = 50
+font_color = Color(1, 1, 0.0196078, 1)
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.39325, 0)
+script = ExtResource("1_olkvl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_krxje")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_yiie4")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.679, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(0.997887, 0.0025829, 0.0649253, -0.00176445, 0.999918, -0.0126603, -0.0649527, 0.012519, 0.99781, 0.439, -0.364, -0.771)
+current = true
+
+[node name="gun" parent="Head/Camera3D" instance=ExtResource("2_phix8")]
+transform = Transform3D(1, 5.82077e-11, 0, 2.91038e-10, 1, -9.31323e-10, 0, 0, 1, 0.439, -0.364, -0.771)
+
+[node name="Label" type="Label" parent="Head/Camera3D" groups=["player"]]
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 795.0
+offset_bottom = 161.0
+text = "40/40"
+label_settings = SubResource("LabelSettings_nh06o")
+
+[node name="Label2" type="Label" parent="Head/Camera3D" groups=["player"]]
+offset_left = 2.0
+offset_top = 68.0
+offset_right = 795.0
+offset_bottom = 231.0
+text = "3 / 3"
+label_settings = SubResource("LabelSettings_qjqva")
+
+[node name="TextureRect" type="TextureRect" parent="Head/Camera3D"]
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 1024.0
+offset_bottom = 604.0
+texture = ExtResource("3_d2bmy")
